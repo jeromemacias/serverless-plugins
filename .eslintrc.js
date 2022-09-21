@@ -3,12 +3,17 @@ module.exports = {
     node: true,
     es6: true
   },
+  parser: 'babel-eslint',
   extends: [
     'plugin:@coorpacademy/coorpacademy/core',
     'plugin:@coorpacademy/coorpacademy/es20XX',
     'plugin:@coorpacademy/coorpacademy/prettier',
     'plugin:@coorpacademy/coorpacademy/lodash-fp'
   ],
+  parserOptions: {
+    allowImportExportEverywhere: true,
+    sourceType: 'module'
+  },
   plugins: ['@coorpacademy/coorpacademy'],
   rules: {
     'fp/no-class': 'off',
@@ -19,7 +24,14 @@ module.exports = {
     'node/no-extraneous-require': [
       'error',
       {
-        allowModules: ['ava', 'aws-sdk']
+        allowModules: ['ava', 'aws-sdk', '@serverless/utils']
+      }
+    ],
+    'node/no-unsupported-features/es-syntax': [
+      'error',
+      {
+        version: '>=12.0.0',
+        ignores: ['dynamicImport']
       }
     ],
     'unicorn/no-unreadable-array-destructuring': 'off',
