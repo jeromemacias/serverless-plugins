@@ -57,7 +57,7 @@ class ServerlessOfflineSQS {
 
     const {sqsEvents, lambdas} = this._getEvents();
 
-    this._createLambda(lambdas);
+    await this._createLambda(lambdas);
 
     const eventModules = [];
 
