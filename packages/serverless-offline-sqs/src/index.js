@@ -82,7 +82,7 @@ class ServerlessOfflineSQS {
     signals.map(signal =>
       process.on(signal, async () => {
         this.serverless.cli.log(`Got ${signal} signal. Offline Halting...`);
-    
+
         await this.end();
       })
     );

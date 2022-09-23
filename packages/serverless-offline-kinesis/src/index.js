@@ -1,8 +1,6 @@
 const {assign, omitBy, isUndefined, get, startsWith, pick} = require('lodash/fp');
 
-const debugLog = require('serverless-offline/dist/debugLog').default;
-const {default: serverlessLog, setLog} = require('serverless-offline/dist/serverlessLog');
-const Lambda = require('serverless-offline/dist/lambda').default;
+const log = require('@serverless/utils/log').log;
 
 const Kinesis = require('./kinesis');
 
@@ -28,8 +26,6 @@ class ServerlessOfflineKinesis {
     this.cliOptions = cliOptions;
     this.serverless = serverless;
 
-    setLog((...args) => serverless.cli.log(...args));
-
     this.hooks = {
       'offline:start:init': this.start.bind(this),
       'offline:start:ready': this.ready.bind(this),
@@ -45,7 +41,7 @@ class ServerlessOfflineKinesis {
 
     const {kinesisEvents, lambdas} = this._getEvents();
 
-    this._createLambda(lambdas);
+    await this._createLambda(lambdas);
 
     const eventModules = [];
 
@@ -55,7 +51,9 @@ class ServerlessOfflineKinesis {
 
     await Promise.all(eventModules);
 
-    serverlessLog(`Starting Offline Kinesis: ${this.options.stage}/${this.options.region}.`);
+    this.serverless.cli.log(
+      `Starting Offline Kinesis: ${this.options.stage}/${this.options.region}.`
+    );
   }
 
   async ready() {
@@ -70,7 +68,7 @@ class ServerlessOfflineKinesis {
       process.on('SIGINT', () => resolve('SIGINT')).on('SIGTERM', () => resolve('SIGTERM'));
     });
 
-    serverlessLog(`Got ${command} signal. Offline Halting...`);
+    this.serverless.cli.log(`Got ${command} signal. Offline Halting...`);
   }
 
   async _startWithExplicitEnd() {
@@ -84,7 +82,7 @@ class ServerlessOfflineKinesis {
       return;
     }
 
-    serverlessLog('Halting offline server');
+    this.serverless.cli.log('Halting offline server');
 
     const eventModules = [];
 
@@ -103,7 +101,10 @@ class ServerlessOfflineKinesis {
     }
   }
 
-  _createLambda(lambdas) {
+  async _createLambda(lambdas) {
+    // eslint-disable-next-line import/dynamic-import-chunkname, import/no-unresolved, node/no-missing-import
+    const {default: Lambda} = await import('serverless-offline/lambda');
+
     this.lambda = new Lambda(this.serverless, this.options);
 
     this.lambda.create(lambdas);
@@ -136,7 +137,7 @@ class ServerlessOfflineKinesis {
       omitUndefined(this.cliOptions)
     );
 
-    debugLog('options:', this.options);
+    log.debug('options:', this.options);
   }
 
   _getEvents() {

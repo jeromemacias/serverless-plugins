@@ -33,9 +33,10 @@ class ServerlessOfflineSSMProvider {
     this.config = this.serverless.service.custom['serverless-offline-ssm-provider'];
     this.values = this.config ? getValues(this.config.file) : getValues();
 
-    const delegate = bind(serverless.variables.getValueFromSource, serverless.variables);
+    let delegate = () => {};
 
     serverless.variables.getValueFromSource = async variableString => {
+      console.log({variableString});
       if (!variableString.startsWith(SSM_PREFIX)) return delegate(variableString);
 
       const ssmPath = variableString.replace(SSM_PREFIX, '');
@@ -45,6 +46,10 @@ class ServerlessOfflineSSMProvider {
 
       return ssmValue;
     };
+
+    delegate = bind(serverless.variables.getValueFromSource, serverless.variables);
+
+    console.log(serverless.variables);
   }
 }
 

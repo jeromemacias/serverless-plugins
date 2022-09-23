@@ -10,7 +10,7 @@
     "test": "npm run test:dynamodb-streams && npm run test:kinesis && npm run test:s3 && npm run test:sqs && npm run test:sqs:autocreate",
     "setup-service": "../../scripts/clean-start.sh",
     "pretest:dynamodb-streams": "npm run -s setup-service dynamodb",
-    "test:dynamodb-streams": "node test-dynamodb-streams",
+    "test:dynamodb-streams": "SLS_INTERACTIVE_SETUP_ENABLE=1 node test-dynamodb-streams",
     "test:sqs": "node test-sqs",
     "test:s3": "node test-s3",
     "pretest:sqs": "npm run -s setup-service sqs",
@@ -25,12 +25,12 @@
     "lodash": "^4.17.20",
     "minio": "^7.0.16",
     "pump": "^3.0.0",
-    "serverless": "^1.83.0",
+    "serverless": "^3.22.0",
     "serverless-offline": "^10.0.2",
-    "serverless-offline-dynamodb-streams": "^5.0.0",
-    "serverless-offline-kinesis": "^5.0.0",
-    "serverless-offline-sqs": "^6.0.0",
-    "serverless-offline-ssm-provider": "^3.0.0",
+    "serverless-offline-dynamodb-streams": "^6.0.0",
+    "serverless-offline-kinesis": "^6.0.0",
+    "serverless-offline-sqs": "^7.0.0",
+    "serverless-offline-ssm-provider": "^4.0.0",
     "signal-exit": "^3.0.3"
   }
 }

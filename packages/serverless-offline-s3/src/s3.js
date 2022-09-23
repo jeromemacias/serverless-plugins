@@ -1,5 +1,5 @@
 const Minio = require('minio');
-const {logWarning} = require('serverless-offline/dist/serverlessLog');
+const log = require('@serverless/utils/log').log;
 const {assign, toNumber} = require('lodash/fp');
 const S3EventDefinition = require('./s3-event-definition');
 const S3Event = require('./s3-event');
@@ -76,7 +76,7 @@ class S3 {
 
           await lambdaFunction.runHandler();
         } catch (err) {
-          logWarning(err.stack);
+          log.warning(err.stack);
         }
       }
     });

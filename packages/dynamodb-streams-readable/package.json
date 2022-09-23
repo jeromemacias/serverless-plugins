@@ -1,6 +1,6 @@
 {
   "name": "dynamodb-streams-readable",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Simple readable stream client for AWS DynamoDB Streams",
   "main": "src",
   "repository": {
@@ -17,7 +17,7 @@
   "author": "Arthur Weber @godu",
   "license": "MIT",
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "devDependencies": {
     "uuid": "^8.3.2"

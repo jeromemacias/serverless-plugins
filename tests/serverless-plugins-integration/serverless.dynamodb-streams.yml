@@ -3,7 +3,7 @@ service: serverless-offline-dynamodb-streams
 provider:
   name: aws
   region: eu-west-1
-  runtime: nodejs12.x
+  runtime: nodejs14.x
 
 plugins:
   - ../../packages/serverless-offline-ssm-provider
