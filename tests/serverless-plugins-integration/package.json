@@ -27,9 +27,9 @@
     "pump": "^3.0.0",
     "serverless": "^3.22.0",
     "serverless-offline": "^10.0.2",
-    "serverless-offline-dynamodb-streams": "^6.0.0",
+    "@jeromemacias/serverless-offline-dynamodb-streams": "^6.0.0",
     "serverless-offline-kinesis": "^6.0.0",
-    "serverless-offline-sqs": "^7.0.0",
+    "@jeromemacias/serverless-offline-sqs": "^7.0.0",
     "serverless-offline-ssm-provider": "^4.0.0",
     "signal-exit": "^3.0.3"
   }

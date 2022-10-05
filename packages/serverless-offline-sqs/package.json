@@ -1,5 +1,5 @@
 {
-  "name": "serverless-offline-sqs",
+  "name": "@jeromemacias/serverless-offline-sqs",
   "version": "7.0.0",
   "description": "Emulate AWS λ and SQS locally when developing your Serverless project",
   "main": "src",
