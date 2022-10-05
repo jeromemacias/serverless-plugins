@@ -1,3 +1,5 @@
+// TODO: prendre inspiration sur https://github.com/janders223/serverless-offline-ssm/blob/master/src/resolver.ts
+
 const fs = require('fs');
 const {fromPairs, get, map, pipe, split, trim, bind} = require('lodash/fp');
 
